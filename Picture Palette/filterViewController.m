@@ -64,6 +64,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //performs a different filter depending on the cell pressed
+    //Sepia
     if (indexPath.row == 0) {
         CIImage *beginImage = [[CIImage alloc]initWithImage:self.currentImage];
         CIContext *context = [CIContext contextWithOptions:nil];
@@ -81,6 +83,7 @@
         
         CGImageRelease(cgimg);
     }
+    //Black & White
     if (indexPath.row == 1) {
         CIImage *beginImage = [[CIImage alloc]initWithImage:self.currentImage];
         
@@ -95,6 +98,7 @@
         
         CGImageRelease(cgiimage);
     }
+    //Bloom
     if (indexPath.row == 2) {
         CIImage *beginImage = [[CIImage alloc]initWithImage:self.currentImage];
         CIContext *context = [CIContext contextWithOptions:nil];
@@ -109,6 +113,7 @@
         
         CGImageRelease(cgimg);
     }
+    //Vibrance
     if (indexPath.row == 3) {
         CIImage *beginImage = [[CIImage alloc]initWithImage:self.currentImage];
         CIContext *context = [CIContext contextWithOptions:nil];
@@ -123,6 +128,7 @@
         
         CGImageRelease(cgimg);
     }
+    //Pixellate
     if (indexPath.row == 4) {
         CIImage *beginImage = [[CIImage alloc]initWithImage:self.currentImage];
         CIContext *context = [CIContext contextWithOptions:nil];
@@ -137,12 +143,12 @@
         
         CGImageRelease(cgimg);
     }
-    NSArray *supportedFilters = [CIFilter filterNamesInCategory:kCICategoryBuiltIn];
-    NSLog(@"%@", supportedFilters);
+    
+    //initiate the segue
     [self performSegueWithIdentifier:@"performFilter" sender:self];
 }
 
-
+//ensures the filtered image is passed to the final view
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     shareViewController *destController = segue.destinationViewController;
     destController.finalImage = self.finalImage;
